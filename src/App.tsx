@@ -33,7 +33,7 @@ function App() {
   };
 
   const openTwitter = () => {
-    window.open('https://x.com/', '_blank');
+    window.open('https://x.com/FUUUCoin', '_blank');
   };
 
   function getViewportCategory(width: number) {
