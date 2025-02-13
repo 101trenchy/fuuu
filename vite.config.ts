@@ -1,8 +1,18 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import fs from 'fs';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    {
+      name: 'copy-redirects',
+      closeBundle() {
+        // Ensure the _redirects file is copied to the build output
+        fs.copyFileSync('public/_redirects', 'dist/_redirects');
+      }
+    }
+  ],
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
