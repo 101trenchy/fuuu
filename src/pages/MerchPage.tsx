@@ -64,7 +64,7 @@ const products: Product[] = [
   },
   {
     id: 2,
-    name: "Rage Comic Hoodie",
+    name: "FUUU Rage Hoodie",
     price: 59.99,
     images: [
       "https://i.imgur.com/x5VUqG3.png",
