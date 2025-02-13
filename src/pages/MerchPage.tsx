@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Mail, X, Minus, Plus } from 'lucide-react';
+import { ArrowLeft, Mail, X } from 'lucide-react';
 import { useSpring, animated } from '@react-spring/web';
 import HalftoneOverlay from '../components/HalftoneOverlay';
 import { MerchTitle } from '../components/MerchTitle';
@@ -32,17 +32,17 @@ const products: Product[] = [
     name: "FUUU Classic T-Shirt",
     price: 29.99,
     images: [
-      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
-      "https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
-      "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
+      "https://i.imgur.com/NkIVoHp.png",
+      "https://i.imgur.com/eppZ5te.png"
     ],
-    description: "Premium quality 100% cotton classic fit tee with iconic rage comic print. Each shirt is hand-screened with care.",
+    description: "Y U NO wearing this epic tee yet? The FUUU Classic T-Shirt combines the timeless rage comic aesthetic with premium comfort. Each masterpiece is hand-screened with the iconic FUUU face that started it all. Perfect for those 'I see what you did there' moments! 🎭",
     features: [
-      "100% Premium Cotton",
-      "Classic Fit",
-      "Hand-screened Print",
-      "Pre-shrunk Fabric",
-      "Ribbed Collar"
+      "Much Cotton, Very Premium (100% Pure)",
+      "True Story Bro Fit™",
+      "Hand-screened Like a Boss",
+      "Pre-shrunk (No 'Y U SHRINK' Moments)",
+      "Challenge Accepted Quality",
+      "Me Gusta Level Comfort"
     ],
     variations: [
       {
@@ -67,17 +67,17 @@ const products: Product[] = [
     name: "Rage Comic Hoodie",
     price: 59.99,
     images: [
-      "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
-      "https://images.unsplash.com/photo-1578768079052-aa76e52ff62e?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
-      "https://images.unsplash.com/photo-1564557287817-3785e38ec1f5?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
+      "https://i.imgur.com/x5VUqG3.png",
+      "https://i.imgur.com/f8SabPb.png"
     ],
-    description: "Ultra-comfortable heavyweight hoodie featuring all your favorite rage faces. Perfect for those cozy meme sessions.",
+    description: "Not sure if regular hoodie... or the comfiest meme wear ever! This ultra-cozy masterpiece features a gallery of classic rage faces that'll make NPCs do a double-take. Perfect for those 'Forever Alone' gaming sessions or 'Challenge Accepted' moments in public! 🎮",
     features: [
-      "80/20 Cotton-Poly Blend",
-      "Heavy 350gsm Fabric",
-      "Double-lined Hood",
-      "Kangaroo Pocket",
-      "Reinforced Seams"
+      "Cotton-Poly Blend (Like a Boss)",
+      "Heavy AF 350gsm Fabric",
+      "Double Hood (Because Two Hoods > One Hood)",
+      "Pocket for Extra Memes",
+      "Seams Strong Like Bull",
+      "Maximum Trolling Comfort"
     ],
     variations: [
       {
@@ -94,20 +94,19 @@ const products: Product[] = [
   },
   {
     id: 3,
-    name: "Meme Lord Cap",
+    name: "Meme Lord Boonie",
     price: 24.99,
     images: [
-      "https://images.unsplash.com/photo-1534215754734-18e55d13e346?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
-      "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
-      "https://images.unsplash.com/photo-1575428652377-a2d80e2277fc?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
+      "https://i.imgur.com/mf5zcjL.png"
     ],
-    description: "Premium structured cap with embroidered rage faces. Adjustable strap ensures the perfect fit for every meme lord.",
+    description: "POV: You're about to become the dankest meme lord in your area. This isn't your average boonie - it's a statement piece that screams 'I was there when rage comics ruled the internet!' Featuring premium embroidery that'll make other hats look like they're still using Impact font. 👑",
     features: [
-      "Structured 6-panel Design",
-      "Premium Embroidery",
-      "Adjustable Strap",
-      "Moisture-wicking Band",
-      "Pre-curved Visor"
+      "360° of Pure Win",
+      "Embroidery Level: Over 9000",
+      "One Size Fits All Chads",
+      "Moisture-wicking (No More Sweaty Forehead Guy)",
+      "Wide Brim for Maximum Protection",
+      "Ultimate Meme Lord Status"
     ],
     variations: [
       {
@@ -208,32 +207,38 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
           <X className="w-8 h-8" />
         </button>
         
-        <button
-          onClick={onPrevious}
-          className="absolute left-4 top-1/2 -translate-y-1/2 text-white/90 hover:text-white transition-all transform -translate-x-12 hover:-translate-x-14 hover:scale-110 active:scale-95 duration-200"
-        >
-          <ArrowLeft className="w-8 h-8" />
-        </button>
+        {product.images.length > 1 && (
+          <>
+            <button
+              onClick={onPrevious}
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-white/90 hover:text-white transition-all transform -translate-x-12 hover:-translate-x-14 hover:scale-110 active:scale-95 duration-200"
+            >
+              <ArrowLeft className="w-8 h-8" />
+            </button>
+            
+            <button
+              onClick={onNext}
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-white/90 hover:text-white transition-all transform translate-x-12 hover:translate-x-14 hover:scale-110 active:scale-95 duration-200"
+            >
+              <ArrowLeft className="w-8 h-8 rotate-180" />
+            </button>
+          </>
+        )}
         
-        <button
-          onClick={onNext}
-          className="absolute right-4 top-1/2 -translate-y-1/2 text-white/90 hover:text-white transition-all transform translate-x-12 hover:translate-x-14 hover:scale-110 active:scale-95 duration-200"
-        >
-          <ArrowLeft className="w-8 h-8 rotate-180" />
-        </button>
-        
-        <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 flex gap-2">
-          {product.images.map((_, index) => (
-            <div
-              key={index}
-              className={`w-2 h-2 rounded-full transition-all duration-200 transform ${
-                currentImage === index 
-                  ? 'bg-white scale-125' 
-                  : 'bg-white/50 hover:bg-white/75 hover:scale-110'
-              }`}
-            />
-          ))}
-        </div>
+        {product.images.length > 1 && (
+          <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 flex gap-2">
+            {product.images.map((_, index) => (
+              <div
+                key={index}
+                className={`w-2 h-2 rounded-full transition-all duration-200 transform ${
+                  currentImage === index 
+                    ? 'bg-white scale-125' 
+                    : 'bg-white/50 hover:bg-white/75 hover:scale-110'
+                }`}
+              />
+            ))}
+          </div>
+        )}
       </animated.div>
     </div>
   );
@@ -277,14 +282,16 @@ const ProductCard: React.FC<{
           }`}
           onLoad={() => setIsLoaded(true)}
         />
-        <div className="absolute bottom-2 right-2 flex gap-1">
-          {product.images.map((_, index) => (
-            <div
-              key={index}
-              className="w-1.5 h-1.5 rounded-full bg-white opacity-75"
-            />
-          ))}
-        </div>
+        {product.images.length > 1 && (
+          <div className="absolute bottom-2 right-2 flex gap-1">
+            {product.images.map((_, index) => (
+              <div
+                key={index}
+                className="w-1.5 h-1.5 rounded-full bg-white opacity-75"
+              />
+            ))}
+          </div>
+        )}
       </div>
 
       <div className="p-6">
