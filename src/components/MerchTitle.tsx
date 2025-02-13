@@ -2,7 +2,7 @@ import React from 'react';
 import { useSpring, animated } from '@react-spring/web';
 
 export const MerchTitle = () => {
-  const letters = 'FUUU Merch'.split('');
+  const letters = '$FUUU Merch'.split('');
   
   const baseAnimation = {
     from: { 
@@ -42,7 +42,7 @@ export const MerchTitle = () => {
       delay: 100 * index,
       from: {
         ...baseAnimation.from,
-        rotate: index % 2 === 0 ? 20 : -20
+        rotate: index === 0 ? 20 : -20
       }
     })
   );

@@ -64,7 +64,7 @@ const products: Product[] = [
   },
   {
     id: 2,
-    name: "Rage Comic Hoodie",
+    name: "FUUU Rage Hoodie",
     price: 59.99,
     images: [
       "https://i.imgur.com/x5VUqG3.png",
@@ -94,21 +94,19 @@ const products: Product[] = [
   },
   {
     id: 3,
-    name: "Meme Lord Cap",
+    name: "Meme Lord Boonie",
     price: 24.99,
     images: [
-      "https://images.unsplash.com/photo-1534215754734-18e55d13e346?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
-      "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
-      "https://images.unsplash.com/photo-1575428652377-a2d80e2277fc?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
+      "https://i.imgur.com/mf5zcjL.png"
     ],
-    description: "POV: You're about to become the dankest meme lord in your area. This isn't your average cap - it's a statement piece that screams 'I was there when rage comics ruled the internet!' Featuring premium embroidery that'll make other caps look like they're still using Impact font. 👑",
+    description: "POV: You're about to become the dankest meme lord in your area. This isn't your average boonie - it's a statement piece that screams 'I was there when rage comics ruled the internet!' Featuring premium embroidery that'll make other hats look like they're still using Impact font. 👑",
     features: [
-      "6 Panels of Pure Win",
+      "360° of Pure Win",
       "Embroidery Level: Over 9000",
       "One Size Fits All Chads",
       "Moisture-wicking (No More Sweaty Forehead Guy)",
-      "Pre-curved Like a Pro",
-      "Maximum Kek Protection"
+      "Wide Brim for Maximum Protection",
+      "Ultimate Meme Lord Status"
     ],
     variations: [
       {
@@ -209,32 +207,38 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
           <X className="w-8 h-8" />
         </button>
         
-        <button
-          onClick={onPrevious}
-          className="absolute left-4 top-1/2 -translate-y-1/2 text-white/90 hover:text-white transition-all transform -translate-x-12 hover:-translate-x-14 hover:scale-110 active:scale-95 duration-200"
-        >
-          <ArrowLeft className="w-8 h-8" />
-        </button>
+        {product.images.length > 1 && (
+          <>
+            <button
+              onClick={onPrevious}
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-white/90 hover:text-white transition-all transform -translate-x-12 hover:-translate-x-14 hover:scale-110 active:scale-95 duration-200"
+            >
+              <ArrowLeft className="w-8 h-8" />
+            </button>
+            
+            <button
+              onClick={onNext}
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-white/90 hover:text-white transition-all transform translate-x-12 hover:translate-x-14 hover:scale-110 active:scale-95 duration-200"
+            >
+              <ArrowLeft className="w-8 h-8 rotate-180" />
+            </button>
+          </>
+        )}
         
-        <button
-          onClick={onNext}
-          className="absolute right-4 top-1/2 -translate-y-1/2 text-white/90 hover:text-white transition-all transform translate-x-12 hover:translate-x-14 hover:scale-110 active:scale-95 duration-200"
-        >
-          <ArrowLeft className="w-8 h-8 rotate-180" />
-        </button>
-        
-        <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 flex gap-2">
-          {product.images.map((_, index) => (
-            <div
-              key={index}
-              className={`w-2 h-2 rounded-full transition-all duration-200 transform ${
-                currentImage === index 
-                  ? 'bg-white scale-125' 
-                  : 'bg-white/50 hover:bg-white/75 hover:scale-110'
-              }`}
-            />
-          ))}
-        </div>
+        {product.images.length > 1 && (
+          <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 flex gap-2">
+            {product.images.map((_, index) => (
+              <div
+                key={index}
+                className={`w-2 h-2 rounded-full transition-all duration-200 transform ${
+                  currentImage === index 
+                    ? 'bg-white scale-125' 
+                    : 'bg-white/50 hover:bg-white/75 hover:scale-110'
+                }`}
+              />
+            ))}
+          </div>
+        )}
       </animated.div>
     </div>
   );
@@ -278,14 +282,16 @@ const ProductCard: React.FC<{
           }`}
           onLoad={() => setIsLoaded(true)}
         />
-        <div className="absolute bottom-2 right-2 flex gap-1">
-          {product.images.map((_, index) => (
-            <div
-              key={index}
-              className="w-1.5 h-1.5 rounded-full bg-white opacity-75"
-            />
-          ))}
-        </div>
+        {product.images.length > 1 && (
+          <div className="absolute bottom-2 right-2 flex gap-1">
+            {product.images.map((_, index) => (
+              <div
+                key={index}
+                className="w-1.5 h-1.5 rounded-full bg-white opacity-75"
+              />
+            ))}
+          </div>
+        )}
       </div>
 
       <div className="p-6">
