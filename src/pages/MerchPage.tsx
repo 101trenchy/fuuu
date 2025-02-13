@@ -35,7 +35,7 @@ const products: Product[] = [
       "https://i.imgur.com/NkIVoHp.png",
       "https://i.imgur.com/eppZ5te.png"
     ],
-    description: "Y U NO wearing this epic tee yet? The FUUU Classic T-Shirt combines the timeless rage comic aesthetic with premium comfort. Each masterpiece is hand-screened with the iconic FUUU face that started it all. Perfect for those 'I see what you did there' moments! 🎭",
+    description: "Y U NO wearing this epic tee yet? The FUUU Classic T-Shirt combines the timeless rage comic aesthetic with premium comfort. Each masterpiece is hand-screened with the iconic FUUU ticker that started it all. Perfect for those 'I see what you did there' moments! 🎭",
     features: [
       "Much Cotton, Very Premium (100% Pure)",
       "True Story Bro Fit™",
