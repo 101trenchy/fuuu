@@ -2,7 +2,7 @@ import React from 'react';
 import { useSpring, animated } from '@react-spring/web';
 
 export const MerchTitle = () => {
-  const letters = '$FUUU merch'.split('');
+  const letters = 'FUUU Merch'.split('');
   
   const baseAnimation = {
     from: { 
