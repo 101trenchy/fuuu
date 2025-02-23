@@ -35,7 +35,7 @@ const products: Product[] = [
       "https://i.imgur.com/NkIVoHp.png",
       "https://i.imgur.com/eppZ5te.png"
     ],
-    description: "Y U NO wearing this epic tee yet? The FUUU Classic T-Shirt combines the timeless rage comic aesthetic with premium comfort. Each masterpiece is hand-screened with the iconic FUUU ticker that started it all. Perfect for those 'I see what you did there' moments! 🎭",
+    description: "Y U NO wearing this epic tee yet? The FUUU Classic T-Shirt combines the timeless rage comic aesthetic with premium comfort. Each masterpiece is hand-screened with the iconic FUUU face that started it all. Perfect for those 'I see what you did there' moments! 🎭",
     features: [
       "Much Cotton, Very Premium (100% Pure)",
       "True Story Bro Fit™",
@@ -57,6 +57,16 @@ const products: Product[] = [
       },
       {
         color: "Gray",
+        sizes: ["XS", "S", "M", "L", "XL", "XXL"],
+        inventory: { "XS": 0, "S": 0, "M": 0, "L": 0, "XL": 0, "XXL": 0 }
+      },
+      {
+        color: "Navy",
+        sizes: ["XS", "S", "M", "L", "XL", "XXL"],
+        inventory: { "XS": 0, "S": 0, "M": 0, "L": 0, "XL": 0, "XXL": 0 }
+      },
+      {
+        color: "Red",
         sizes: ["XS", "S", "M", "L", "XL", "XXL"],
         inventory: { "XS": 0, "S": 0, "M": 0, "L": 0, "XL": 0, "XXL": 0 }
       }
@@ -87,6 +97,16 @@ const products: Product[] = [
       },
       {
         color: "Navy",
+        sizes: ["S", "M", "L", "XL", "XXL"],
+        inventory: { "S": 0, "M": 0, "L": 0, "XL": 0, "XXL": 0 }
+      },
+      {
+        color: "Gray",
+        sizes: ["S", "M", "L", "XL", "XXL"],
+        inventory: { "S": 0, "M": 0, "L": 0, "XL": 0, "XXL": 0 }
+      },
+      {
+        color: "Red",
         sizes: ["S", "M", "L", "XL", "XXL"],
         inventory: { "S": 0, "M": 0, "L": 0, "XL": 0, "XXL": 0 }
       }
@@ -121,6 +141,16 @@ const products: Product[] = [
       },
       {
         color: "Red",
+        sizes: ["One Size"],
+        inventory: { "One Size": 0 }
+      },
+      {
+        color: "Gray",
+        sizes: ["One Size"],
+        inventory: { "One Size": 0 }
+      },
+      {
+        color: "White",
         sizes: ["One Size"],
         inventory: { "One Size": 0 }
       }

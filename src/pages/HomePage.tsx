@@ -1,15 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Matter from 'matter-js';
-import { Copy, Check, ShoppingBag } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { RAGE_FACES, FACE_TYPES, PHYSICS_CONFIG, VIEWPORT_BREAKPOINTS, FACE_COUNT_RANGES } from '../constants';
 import type { RageFace } from '../types';
 import HalftoneOverlay from '../components/HalftoneOverlay';
 import { soundManager } from '../sounds';
 import { AnimatedTitle } from '../components/AnimatedTitle';
-import { LoadingText } from '../components/LoadingText';
 import { AnimatedSubtitle } from '../components/AnimatedSubtitle';
-import { XLogo } from '../components/XLogo';
+import { AnimatedNavButtons } from '../components/AnimatedNavButtons';
 
 function HomePage() {
   const navigate = useNavigate();
@@ -32,14 +30,6 @@ function HomePage() {
     } catch (err) {
       console.error('Failed to copy:', err);
     }
-  };
-
-  const openTwitter = () => {
-    window.open('https://twitter.com/FUUUtoken', '_blank');
-  };
-
-  const openMerch = () => {
-    navigate('/merch');
   };
 
   function getViewportCategory(width: number) {
@@ -326,33 +316,11 @@ function HomePage() {
       }}>
         <AnimatedTitle />
         <AnimatedSubtitle />
-        <div className="flex gap-3">
-          <div 
-            className="flex items-center gap-2 bg-white px-4 py-2 rounded-lg shadow-md pointer-events-auto cursor-pointer hover:bg-gray-50 transition-colors"
-            onClick={copyToClipboard}
-          >
-            <LoadingText />
-            {copied ? (
-              <Check className="w-4 h-4 text-green-500" />
-            ) : (
-              <Copy className="w-4 h-4 text-gray-500" />
-            )}
-          </div>
-          <div
-            className="flex items-center gap-2 bg-white px-4 py-2 rounded-lg shadow-md pointer-events-auto cursor-pointer hover:bg-gray-50 transition-colors"
-            onClick={openTwitter}
-          >
-            <span className="font-mono text-gray-700">Follow</span>
-            <XLogo className="w-4 h-4 text-gray-700" />
-          </div>
-          <div
-            className="flex items-center gap-2 bg-white px-4 py-2 rounded-lg shadow-md pointer-events-auto cursor-pointer hover:bg-gray-50 transition-colors"
-            onClick={openMerch}
-          >
-            <span className="font-mono text-gray-700">Merch</span>
-            <ShoppingBag className="w-4 h-4 text-gray-700" />
-          </div>
-        </div>
+        <AnimatedNavButtons
+          contractAddress={contractAddress}
+          copied={copied}
+          onCopy={copyToClipboard}
+        />
       </div>
     </div>
   );
