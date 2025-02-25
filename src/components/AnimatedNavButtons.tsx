@@ -44,7 +44,7 @@ export const AnimatedNavButtons: React.FC<{
   const navigate = useNavigate();
 
   const openTwitter = () => {
-    window.open('https://twitter.com/FUUUtoken', '_blank');
+    window.open('https://x.com/FUUUCoin', '_blank');
   };
 
   const openMerch = () => {
