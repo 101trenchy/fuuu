@@ -9,9 +9,10 @@ interface AnimatedNavButtonProps {
   children: React.ReactNode;
   delay: number;
   onClick: () => void;
+  isPrimary?: boolean;
 }
 
-const AnimatedNavButton: React.FC<AnimatedNavButtonProps> = ({ children, delay, onClick }) => {
+const AnimatedNavButton: React.FC<AnimatedNavButtonProps> = ({ children, delay, onClick, isPrimary = false }) => {
   const springProps = useSpring({
     from: { 
       opacity: 0,
@@ -25,13 +26,36 @@ const AnimatedNavButton: React.FC<AnimatedNavButtonProps> = ({ children, delay, 
     config: { ...config.easeOut, duration: 500 }
   });
 
+  const glowSpring = useSpring({
+    from: { textShadow: '0 0 0px rgba(255,118,118,0)' },
+    to: async (next) => {
+      while (true) {
+        await next({ textShadow: '0 0 20px rgba(255,118,118,0.6)' });
+        await next({ textShadow: '0 0 5px rgba(255,118,118,0.2)' });
+      }
+    },
+    config: { duration: 2000 },
+    pause: !isPrimary
+  });
+
   return (
     <animated.div
       style={springProps}
-      className="flex items-center gap-2 bg-white px-4 py-2 rounded-lg shadow-md pointer-events-auto cursor-pointer hover:bg-gray-50 transition-colors"
-      onClick={onClick}
+      className="flex items-center gap-2 pointer-events-auto cursor-pointer transition-colors"
     >
-      {children}
+      <animated.div
+        style={isPrimary ? glowSpring : undefined}
+        onClick={onClick}
+        className={`
+          flex items-center gap-2 px-4 py-2 rounded-lg shadow-md transition-colors duration-200
+          ${isPrimary 
+            ? 'bg-[#ff7676] hover:bg-[#ff6262] text-white'
+            : 'bg-white hover:bg-gray-50'
+          }
+        `}
+      >
+        {children}
+      </animated.div>
     </animated.div>
   );
 };
@@ -53,12 +77,12 @@ export const AnimatedNavButtons: React.FC<{
 
   return (
     <div className="flex gap-3">
-      <AnimatedNavButton delay={200} onClick={onCopy}>
+      <AnimatedNavButton delay={200} onClick={onCopy} isPrimary={true}>
         <LoadingText />
         {copied ? (
-          <Check className="w-4 h-4 text-green-500" />
+          <Check className="w-4 h-4 text-white" />
         ) : (
-          <Copy className="w-4 h-4 text-gray-500" />
+          <Copy className="w-4 h-4 text-white" />
         )}
       </AnimatedNavButton>
 

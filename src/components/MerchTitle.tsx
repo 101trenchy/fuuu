@@ -50,7 +50,7 @@ export const MerchTitle = () => {
   return (
     <h1 className="text-8xl font-black select-none mb-4 flex items-center justify-center" 
         style={{ 
-          fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+          fontFamily: 'Rubik, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
         }}>
       {letters.map((letter, index) => (
         <animated.span

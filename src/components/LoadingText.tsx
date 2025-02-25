@@ -11,7 +11,7 @@ export const LoadingText = () => {
           {word.split('').map((char, charIndex) => (
             <span
               key={charIndex}
-              className="inline-block font-mono text-gray-700 animate-bounce"
+              className="inline-block font-mono text-white animate-bounce"
               style={{
                 animationDelay: `${(wordIndex * word.length + charIndex) * 0.1}s`,
                 animationDuration: '1s',
