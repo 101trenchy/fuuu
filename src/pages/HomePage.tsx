@@ -8,6 +8,7 @@ import { soundManager } from '../sounds';
 import { AnimatedTitle } from '../components/AnimatedTitle';
 import { AnimatedSubtitle } from '../components/AnimatedSubtitle';
 import { AnimatedNavButtons } from '../components/AnimatedNavButtons';
+import { Leaderboard } from '../components/Leaderboard';
 
 function HomePage() {
   const navigate = useNavigate();
@@ -321,6 +322,9 @@ function HomePage() {
           copied={copied}
           onCopy={copyToClipboard}
         />
+        <div className="mt-12 px-4 w-full max-w-4xl">
+          <Leaderboard />
+        </div>
       </div>
     </div>
   );

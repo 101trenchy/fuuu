@@ -9,7 +9,11 @@ export default defineConfig({
       name: 'copy-redirects',
       closeBundle() {
         // Ensure the _redirects file is copied to the build output
-        fs.copyFileSync('public/_redirects', 'dist/_redirects');
+        try {
+          fs.copyFileSync('public/_redirects', 'dist/_redirects');
+        } catch (error) {
+          console.error('Error copying _redirects file:', error);
+        }
       }
     }
   ],

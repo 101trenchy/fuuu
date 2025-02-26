@@ -8,10 +8,14 @@ function App() {
   // Handle auth state on app initialization
   useEffect(() => {
     const handleAuthChanges = async () => {
-      // This will handle the auth redirect and session management
-      const { error } = await supabase.auth.getSession();
-      if (error) {
-        console.error('Error getting auth session:', error);
+      try {
+        // This will handle the auth redirect and session management
+        const { error } = await supabase.auth.getSession();
+        if (error) {
+          console.error('Error getting auth session:', error);
+        }
+      } catch (err) {
+        console.error('Failed to get auth session:', err);
       }
     };
     

@@ -70,12 +70,17 @@ export const AnimatedNavButtons: React.FC<{
   const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(null);
   const [authError, setAuthError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     // Get initial auth state
     const getInitialUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      setUser(user);
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        setUser(user);
+      } catch (error) {
+        console.error('Error getting user:', error);
+      }
     };
     getInitialUser();
 
@@ -97,6 +102,7 @@ export const AnimatedNavButtons: React.FC<{
 
   const handleXLogin = async () => {
     try {
+      setIsLoading(true);
       setAuthError(null);
       
       // Get the current origin for the redirect
@@ -121,13 +127,24 @@ export const AnimatedNavButtons: React.FC<{
     } catch (error) {
       setAuthError('An unexpected error occurred. Please try again.');
       console.error('Error logging in with X:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleLogout = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      console.error('Error signing out:', error);
+    try {
+      setIsLoading(true);
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        console.error('Error signing out:', error);
+        setAuthError('Failed to log out. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error during logout:', error);
+      setAuthError('An unexpected error occurred during logout.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -144,7 +161,11 @@ export const AnimatedNavButtons: React.FC<{
         </AnimatedNavButton>
 
         <AnimatedNavButton delay={400} onClick={user ? handleLogout : handleXLogin}>
-          {user ? (
+          {isLoading ? (
+            <div className="flex items-center gap-2">
+              <span className="font-mono text-gray-700">Loading...</span>
+            </div>
+          ) : user ? (
             <div className="flex items-center gap-2">
               <img
                 src={user.user_metadata.avatar_url}
