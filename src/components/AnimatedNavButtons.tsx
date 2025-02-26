@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Copy, Check, ShoppingBag } from 'lucide-react';
+import { Copy, Check, ShoppingBag, LogIn, AlertCircle } from 'lucide-react';
 import { useSpring, animated, config } from '@react-spring/web';
 import { LoadingText } from './LoadingText';
 import { XLogo } from './XLogo';
+import { supabase } from '../lib/supabase';
+import type { User } from '@supabase/supabase-js';
 
 interface AnimatedNavButtonProps {
   children: React.ReactNode;
@@ -64,37 +66,76 @@ export const AnimatedNavButtons: React.FC<{
   contractAddress: string;
   copied: boolean;
   onCopy: () => void;
-}> = ({ contractAddress, copied, onCopy }) => {
+  onXLogin: () => void;
+  authError: string | null;
+}> = ({ contractAddress, copied, onCopy, onXLogin, authError }) => {
   const navigate = useNavigate();
+  const [user, setUser] = useState<User | null>(null);
 
-  const openTwitter = () => {
-    window.open('https://x.com/FUUUCoin', '_blank');
-  };
+  useEffect(() => {
+    // Get initial auth state
+    const getInitialUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      setUser(user);
+    };
+    getInitialUser();
+
+    // Subscribe to auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      setUser(session?.user || null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   const openMerch = () => {
     navigate('/merch');
   };
 
   return (
-    <div className="flex gap-3">
-      <AnimatedNavButton delay={200} onClick={onCopy} isPrimary={true}>
-        <LoadingText />
-        {copied ? (
-          <Check className="w-4 h-4 text-white" />
-        ) : (
-          <Copy className="w-4 h-4 text-white" />
-        )}
-      </AnimatedNavButton>
+    <div className="relative">
+      <div className="flex gap-3">
+        <AnimatedNavButton delay={200} onClick={onCopy} isPrimary={true}>
+          <LoadingText />
+          {copied ? (
+            <Check className="w-4 h-4 text-white" />
+          ) : (
+            <Copy className="w-4 h-4 text-white" />
+          )}
+        </AnimatedNavButton>
 
-      <AnimatedNavButton delay={400} onClick={openTwitter}>
-        <span className="font-mono text-gray-700">Follow</span>
-        <XLogo className="w-4 h-4 text-gray-700" />
-      </AnimatedNavButton>
+        <AnimatedNavButton delay={400} onClick={user ? () => {} : onXLogin}>
+          {user ? (
+            <div className="flex items-center gap-2">
+              <img
+                src={user.user_metadata.avatar_url}
+                alt={user.user_metadata.user_name}
+                className="w-6 h-6 rounded-full"
+              />
+              <span className="font-mono text-gray-700">
+                @{user.user_metadata.user_name}
+              </span>
+            </div>
+          ) : (
+            <>
+              <span className="font-mono text-gray-700">Login with</span>
+              <XLogo className="w-4 h-4 text-gray-700" />
+            </>
+          )}
+        </AnimatedNavButton>
 
-      <AnimatedNavButton delay={600} onClick={openMerch}>
-        <span className="font-mono text-gray-700">Merch</span>
-        <ShoppingBag className="w-4 h-4 text-gray-700" />
-      </AnimatedNavButton>
+        <AnimatedNavButton delay={600} onClick={openMerch}>
+          <span className="font-mono text-gray-700">Merch</span>
+          <ShoppingBag className="w-4 h-4 text-gray-700" />
+        </AnimatedNavButton>
+      </div>
+
+      {authError && (
+        <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-4 bg-red-50 text-red-600 px-4 py-2 rounded-lg flex items-center gap-2 shadow-lg">
+          <AlertCircle className="w-4 h-4" />
+          <span className="text-sm">{authError}</span>
+        </div>
+      )}
     </div>
   );
 };
