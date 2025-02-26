@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Copy, Check, ShoppingBag, Trophy, User } from 'lucide-react';
+import { Copy, Check, ShoppingBag } from 'lucide-react';
 import { useSpring, animated, config } from '@react-spring/web';
 import { LoadingText } from './LoadingText';
 import { XLogo } from './XLogo';
@@ -75,16 +75,8 @@ export const AnimatedNavButtons: React.FC<{
     navigate('/merch');
   };
 
-  const openLeaderboard = () => {
-    navigate('/leaderboard');
-  };
-
-  const openProfile = () => {
-    navigate('/profile');
-  };
-
   return (
-    <div className="flex flex-wrap gap-3 justify-center">
+    <div className="flex gap-3">
       <AnimatedNavButton delay={200} onClick={onCopy} isPrimary={true}>
         <LoadingText />
         {copied ? (
@@ -102,16 +94,6 @@ export const AnimatedNavButtons: React.FC<{
       <AnimatedNavButton delay={600} onClick={openMerch}>
         <span className="font-mono text-gray-700">Merch</span>
         <ShoppingBag className="w-4 h-4 text-gray-700" />
-      </AnimatedNavButton>
-
-      <AnimatedNavButton delay={800} onClick={openLeaderboard}>
-        <span className="font-mono text-gray-700">Leaderboard</span>
-        <Trophy className="w-4 h-4 text-gray-700" />
-      </AnimatedNavButton>
-
-      <AnimatedNavButton delay={1000} onClick={openProfile}>
-        <span className="font-mono text-gray-700">Profile</span>
-        <User className="w-4 h-4 text-gray-700" />
       </AnimatedNavButton>
     </div>
   );

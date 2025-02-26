@@ -11,15 +11,12 @@
   },
   "dependencies": {
     "@react-spring/web": "^9.7.3",
-    "@supabase/supabase-js": "^2.39.3",
     "lucide-react": "^0.344.0",
     "matter-js": "^0.19.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.22.3",
-    "react-medium-image-zoom": "^5.1.10",
-    "recharts": "^2.12.1",
-    "date-fns": "^3.3.1"
+    "react-medium-image-zoom": "^5.1.10"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",
