@@ -8,12 +8,38 @@ if (!supabaseUrl || !supabaseAnonKey) {
   throw new Error('Missing Supabase environment variables');
 }
 
-// Create a reusable Supabase client
+// Create a reusable Supabase client with proper auth configuration
 export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
   auth: {
     flowType: 'pkce',
     autoRefreshToken: true,
     persistSession: true,
-    detectSessionInUrl: true
+    detectSessionInUrl: true,
+    storageKey: 'fuuu-auth-token',
+    storage: {
+      getItem: (key) => {
+        try {
+          const value = localStorage.getItem(key);
+          return value ? JSON.parse(value) : null;
+        } catch (error) {
+          console.error('Error retrieving auth from storage:', error);
+          return null;
+        }
+      },
+      setItem: (key, value) => {
+        try {
+          localStorage.setItem(key, JSON.stringify(value));
+        } catch (error) {
+          console.error('Error storing auth in storage:', error);
+        }
+      },
+      removeItem: (key) => {
+        try {
+          localStorage.removeItem(key);
+        } catch (error) {
+          console.error('Error removing auth from storage:', error);
+        }
+      }
+    }
   }
 });

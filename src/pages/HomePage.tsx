@@ -18,7 +18,7 @@ function HomePage() {
   const spawnCountRef = useRef(0);
   const startTimeRef = useRef<number>(0);
   const imageDimensionsRef = useRef<Record<string, { width: number; height: number }>>({});
-  const [maxFaces, setMaxFaces] = useState(getMaxFacesForViewport());
+  const [maxFaces, setMaxFaces] = useState<number>(getMaxFacesForViewport());
   const [copied, setCopied] = useState(false);
   const contractAddress = "No CA yet...";
 
