@@ -8,8 +8,6 @@ import { soundManager } from '../sounds';
 import { AnimatedTitle } from '../components/AnimatedTitle';
 import { AnimatedSubtitle } from '../components/AnimatedSubtitle';
 import { AnimatedNavButtons } from '../components/AnimatedNavButtons';
-import { Leaderboard } from '../components/Leaderboard';
-import { supabase } from '../lib/supabase';
 
 function HomePage() {
   const navigate = useNavigate();
@@ -20,9 +18,8 @@ function HomePage() {
   const spawnCountRef = useRef(0);
   const startTimeRef = useRef<number>(0);
   const imageDimensionsRef = useRef<Record<string, { width: number; height: number }>>({});
-  const [maxFaces, setMaxFaces] = useState<number>(getMaxFacesForViewport());
+  const [maxFaces, setMaxFaces] = useState(getMaxFacesForViewport());
   const [copied, setCopied] = useState(false);
-  const [authError, setAuthError] = useState<string | null>(null);
   const contractAddress = "No CA yet...";
 
   const copyToClipboard = async () => {
@@ -32,35 +29,6 @@ function HomePage() {
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
       console.error('Failed to copy:', err);
-    }
-  };
-
-  const handleXLogin = async () => {
-    try {
-      setAuthError(null);
-      
-      // Get the current origin for the redirect
-      // This will work with any domain including custom domains
-      const currentOrigin = window.location.origin;
-      
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'twitter',
-        options: {
-          redirectTo: currentOrigin
-        }
-      });
-      
-      if (error) {
-        if (error.message.includes('provider is not enabled')) {
-          setAuthError('X/Twitter login is currently unavailable. Please try again later.');
-        } else {
-          setAuthError('Failed to login. Please try again.');
-        }
-        console.error('Error logging in with X:', error);
-      }
-    } catch (error) {
-      setAuthError('An unexpected error occurred. Please try again.');
-      console.error('Error logging in with X:', error);
     }
   };
 
@@ -352,12 +320,7 @@ function HomePage() {
           contractAddress={contractAddress}
           copied={copied}
           onCopy={copyToClipboard}
-          onXLogin={handleXLogin}
-          authError={authError}
         />
-        <div className="mt-12 px-4 w-full max-w-4xl">
-          <Leaderboard />
-        </div>
       </div>
     </div>
   );
