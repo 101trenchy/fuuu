@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Copy, Check, ShoppingBag, LogIn, AlertCircle } from 'lucide-react';
+import { Copy, Check, ShoppingBag, ExternalLink } from 'lucide-react';
 import { useSpring, animated, config } from '@react-spring/web';
 import { LoadingText } from './LoadingText';
 import { XLogo } from './XLogo';
-import { supabase } from '../lib/supabase';
-import type { User } from '@supabase/supabase-js';
 
 interface AnimatedNavButtonProps {
   children: React.ReactNode;
@@ -68,29 +66,6 @@ export const AnimatedNavButtons: React.FC<{
   onCopy: () => void;
 }> = ({ contractAddress, copied, onCopy }) => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<User | null>(null);
-  const [authError, setAuthError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    // Get initial auth state
-    const getInitialUser = async () => {
-      try {
-        const { data } = await supabase.auth.getUser();
-        setUser(data.user);
-      } catch (error) {
-        console.error('Error getting user:', error);
-      }
-    };
-    getInitialUser();
-
-    // Subscribe to auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      setUser(session?.user || null);
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
 
   const openMerch = () => {
     navigate('/merch');
@@ -100,107 +75,26 @@ export const AnimatedNavButtons: React.FC<{
     window.open('https://x.com/FUUUCoin', '_blank');
   };
 
-  const handleXLogin = async () => {
-    try {
-      setIsLoading(true);
-      setAuthError(null);
-      
-      // Get the current origin for the redirect
-      const currentOrigin = window.location.origin;
-      
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'twitter',
-        options: {
-          redirectTo: currentOrigin,
-          skipBrowserRedirect: false
-        }
-      });
-      
-      if (error) {
-        if (error.message.includes('provider is not enabled')) {
-          setAuthError('X/Twitter login is currently unavailable. Please try again later.');
-        } else {
-          setAuthError('Failed to login. Please try again.');
-        }
-        console.error('Error logging in with X:', error);
-      }
-    } catch (error) {
-      setAuthError('An unexpected error occurred. Please try again.');
-      console.error('Error logging in with X:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleLogout = async () => {
-    try {
-      setIsLoading(true);
-      const { error } = await supabase.auth.signOut();
-      if (error) {
-        console.error('Error signing out:', error);
-        setAuthError('Failed to log out. Please try again.');
-      }
-    } catch (error) {
-      console.error('Error during logout:', error);
-      setAuthError('An unexpected error occurred during logout.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   return (
-    <div className="relative">
-      <div className="flex gap-3">
-        <AnimatedNavButton delay={200} onClick={onCopy} isPrimary={true}>
-          <LoadingText />
-          {copied ? (
-            <Check className="w-4 h-4 text-white" />
-          ) : (
-            <Copy className="w-4 h-4 text-white" />
-          )}
-        </AnimatedNavButton>
+    <div className="flex gap-3">
+      <AnimatedNavButton delay={200} onClick={onCopy} isPrimary={true}>
+        <LoadingText />
+        {copied ? (
+          <Check className="w-4 h-4 text-white" />
+        ) : (
+          <Copy className="w-4 h-4 text-white" />
+        )}
+      </AnimatedNavButton>
 
-        <AnimatedNavButton delay={400} onClick={user ? handleLogout : handleXLogin}>
-          {isLoading ? (
-            <div className="flex items-center gap-2">
-              <span className="font-mono text-gray-700">Loading...</span>
-            </div>
-          ) : user ? (
-            <div className="flex items-center gap-2">
-              <img
-                src={user.user_metadata.avatar_url}
-                alt={user.user_metadata.user_name}
-                className="w-6 h-6 rounded-full"
-              />
-              <span className="font-mono text-gray-700">
-                @{user.user_metadata.user_name}
-              </span>
-            </div>
-          ) : (
-            <>
-              <span className="font-mono text-gray-700">Login with</span>
-              <XLogo className="w-4 h-4 text-gray-700" />
-            </>
-          )}
-        </AnimatedNavButton>
+      <AnimatedNavButton delay={400} onClick={openXProfile}>
+        <span className="font-mono text-gray-700">Follow on</span>
+        <XLogo className="w-4 h-4 text-gray-700" />
+      </AnimatedNavButton>
 
-        <AnimatedNavButton delay={600} onClick={openXProfile}>
-          <span className="font-mono text-gray-700">Follow on</span>
-          <XLogo className="w-4 h-4 text-gray-700" />
-        </AnimatedNavButton>
-
-        <AnimatedNavButton delay={800} onClick={openMerch}>
-          <span className="font-mono text-gray-700">Merch</span>
-          <ShoppingBag className="w-4 h-4 text-gray-700" />
-        </AnimatedNavButton>
-      </div>
-
-      {authError && (
-        <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-4 bg-red-50 text-red-600 px-4 py-2 rounded-lg flex items-center gap-2 shadow-lg">
-          <AlertCircle className="w-4 h-4" />
-          <span className="text-sm">{authError}</span>
-        </div>
-      )}
+      <AnimatedNavButton delay={600} onClick={openMerch}>
+        <span className="font-mono text-gray-700">Merch</span>
+        <ShoppingBag className="w-4 h-4 text-gray-700" />
+      </AnimatedNavButton>
     </div>
   );
 };
