@@ -76,8 +76,8 @@ export const AnimatedNavButtons: React.FC<{
     // Get initial auth state
     const getInitialUser = async () => {
       try {
-        const { data: { user } } = await supabase.auth.getUser();
-        setUser(user);
+        const { data } = await supabase.auth.getUser();
+        setUser(data.user);
       } catch (error) {
         console.error('Error getting user:', error);
       }

@@ -9,13 +9,30 @@ function App() {
   useEffect(() => {
     const handleAuthChanges = async () => {
       try {
-        // This will handle the auth redirect and session management
-        const { error } = await supabase.auth.getSession();
-        if (error) {
-          console.error('Error getting auth session:', error);
+        // Get the hash from the URL
+        const hash = window.location.hash;
+        
+        // If there's a hash, it might be an auth callback
+        if (hash && hash.includes('access_token')) {
+          // Handle the hash manually instead of relying on auto-detection
+          const { data, error } = await supabase.auth.getSession();
+          
+          if (error) {
+            console.error('Error processing auth callback:', error);
+          } else if (data?.session) {
+            console.log('User authenticated successfully');
+            // Clear the hash to prevent issues on refresh
+            window.history.replaceState(null, '', window.location.pathname);
+          }
+        } else {
+          // Just get the session without processing any hash
+          const { error } = await supabase.auth.getSession();
+          if (error) {
+            console.error('Error getting auth session:', error);
+          }
         }
       } catch (err) {
-        console.error('Failed to get auth session:', err);
+        console.error('Failed to handle auth:', err);
       }
     };
     
