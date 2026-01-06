@@ -90,11 +90,11 @@ export const AnimatedNavButtons: React.FC<{
         <span className="font-mono text-gray-700">Follow on</span>
         <XLogo className="w-4 h-4 text-gray-700" />
       </AnimatedNavButton>
-
+      {/* Hello World 
       <AnimatedNavButton delay={600} onClick={openMerch}>
         <span className="font-mono text-gray-700">Merch</span>
         <ShoppingBag className="w-4 h-4 text-gray-700" />
-      </AnimatedNavButton>
+      </AnimatedNavButton>*/}
     </div>
   );
 };
