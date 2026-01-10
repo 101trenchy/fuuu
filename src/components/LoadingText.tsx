@@ -1,7 +1,7 @@
 import React from 'react';
 
 export const LoadingText = () => {
-  const words = "No CA yet...".split(' ');
+  const words = "6NTA...pump".split(' ');
   
   return (
     <div className="inline-flex items-center">
