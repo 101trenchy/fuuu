@@ -20,7 +20,7 @@ function HomePage() {
   const imageDimensionsRef = useRef<Record<string, { width: number; height: number }>>({});
   const [maxFaces, setMaxFaces] = useState<number>(getMaxFacesForViewport());
   const [copied, setCopied] = useState(false);
-  const contractAddress = "No CA yet...";
+  const contractAddress = "6NTAYu4vNePqNJTNKY3RtP2bdD3m5yDnCtqn2h25pump";
 
   const copyToClipboard = async () => {
     try {
