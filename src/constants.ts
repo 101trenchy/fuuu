@@ -1,6 +1,6 @@
 export const RAGE_FACES = {
   foreveralone: 'https://i.imgur.com/o6ynuSW.png',
-  fuuu: 'https://i.imgur.com/712xc4a.png',
+  fuuu: 'https://i.imgur.com/OEwR2we.png',
   fap: 'https://i.imgur.com/mbrIn6A.png',
   megusta: 'https://i.imgur.com/jLFZ5zO.png',
   troll: 'https://i.imgur.com/Sef8QGh.png',
