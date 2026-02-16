@@ -13,25 +13,7 @@ export const RAGE_FACES = {
   stop: 'https://i.imgur.com/kimaxJg.png',
   challenge: 'https://i.imgur.com/HJXxSXC.png',
   kdding: 'https://i.imgur.com/SHKzvcz.png',
-  gib: 'https://i.imgur.com/qPQqhLh.png',
-  win: 'https://i.imgur.com/CZ3BoSg.png',
-  cereal: 'https://i.imgur.com/QXysvKX.png',
-  something: 'https://i.imgur.com/41a0dYx.png',
-  facep: 'https://i.imgur.com/BnKeVbP.png',
-  lied: 'https://i.imgur.com/w0kDzYe.png',
-  megusta2: 'https://i.imgur.com/TmeWOHO.png',
-  uno: 'https://i.imgur.com/tXXDjsw.png',
-  heppy: 'https://i.imgur.com/IMeCNbD.png',
-  womanp: 'https://i.imgur.com/2bm3Zc5.png',
-  strngl: 'https://i.imgur.com/BMq9feg.png',
-  lmfao: 'https://i.imgur.com/eG30vWA.png',
-  bigno: 'https://i.imgur.com/vpDHoEh.png',
-  freddy: 'https://i.imgur.com/vpDHoEh.png',
-  eyeonu: 'https://i.imgur.com/dysXIxQ.png',
-  ohwhy: 'https://i.imgur.com/5kvv6jX.png',
-  scream: 'https://i.imgur.com/SK7kvLP.png',
-  bshpls: 'https://i.imgur.com/XX9Eb4R.png',
-  jetpack: 'https://i.imgur.com/TUaMTtx.png'
+  gib: 'https://i.imgur.com/qPQqhLh.png'
 } as const;
 
 export const FACE_TYPES = Object.keys(RAGE_FACES) as Array<keyof typeof RAGE_FACES>;
