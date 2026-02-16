@@ -1,7 +1,7 @@
 export const RAGE_FACES = {
   foreveralone: 'https://i.imgur.com/o6ynuSW.png',
   fuuu: 'https://i.imgur.com/OEwR2we.png',
-  fap: 'https://i.imgur.com/mbrIn6A.png',
+  fap: 'https://i.imgur.com/6rASy9u.png',
   megusta: 'https://i.imgur.com/jLFZ5zO.png',
   troll: 'https://i.imgur.com/Sef8QGh.png',
   boss: 'https://i.imgur.com/0jy5JTQ.png', // Fixed typo in URL (removed extra 'g')
